@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-bo$7b9h-6(cz189k0c354j07byljvc%3@n)@tgc56@yhe69#-o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -126,3 +126,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = None  # Session ends when browser is closed
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
