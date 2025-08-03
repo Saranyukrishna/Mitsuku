@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LLM Chatbot</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #ffffff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin: 20px 0;
+            color: #0a58ca;
+        }
+
+        .chat-wrapper {
+            width: 90%;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 85vh;
+        }
+
+        .chat-container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #f4f6fa;
+        }
+
+        .user-msg {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+
+        .ai-msg {
+            color: #333;
+            background: #eef1f7;
+            padding: 10px 15px;
+            border-radius: 10px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        pre {
+            background: #1e1e1e;
+            color: #e8e8e8;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        .input-container {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            background: #fafafa;
+        }
+
+        .input-container input[type="text"] {
+            flex-grow: 1;
+            padding: 14px 18px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-container input[type="submit"] {
+            padding: 14px 20px;
+            background: #007bff;
+            border: none;
+            color: white;
+            margin-left: 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .input-container input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+        @media screen and (max-width: 600px) {
+            .input-container input[type="text"] {
+                font-size: 14px;
+            }
+
+            .input-container input[type="submit"] {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Mitsuku</h1>
+    <div class="chat-wrapper">
+        <div class="chat-container" id="chatBox">
+            {% for item in history %}
+                <div class="message">
+                    <div class="user-msg">User: {{ item.user }}</div>
+                    <div class="ai-msg">AI: {{ item.ai|safe }}</div>
+                </div>
+            {% empty %}
+                <div class="message">No chat yet. Start the conversation below 👇</div>
+            {% endfor %}
+        </div>
+
+        <form method="post" class="input-container">
+            {% csrf_token %}
+            <input type="text" name="message" placeholder="Type your message..." required>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chatBox');
+        chatBox.scrollTop = chatBox.scrollHeight;
+    </script>
+</body>
+</html>
